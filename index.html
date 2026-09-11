@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coming soon</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #ffffff; overflow: hidden; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #000; }
+  canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  .note { position: fixed; top: 22px; left: 24px; }
+  .note .logo { display: block; width: 180px; height: auto; fill: #000; }
+  .again {
+    position: fixed; top: 22px; right: 24px;
+    font: inherit; font-size: 15px; letter-spacing: -0.01em;
+    background: none; border: 0; padding: 0; color: #000; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .again:focus-visible { outline: 2px solid #000; outline-offset: 4px; }
+  @media (max-width: 600px) {
+    .note { top: 18px; left: 18px; }
+    .note .logo { width: 130px; }
+    .again { top: 18px; right: 18px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<!-- 왼쪽 위 로고 -->
+<div class="note">
+<svg class="logo" role="img" aria-label="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 672.44 118.14">
+  <path d="M102.68,80.94v37.2h-11.76V28.86h11.76l.72,9.12c9.45-9.5,22.8-13.97,35.2-7,22.76,12.79,20.91,53.76-6.2,59.64-11.03,2.39-21.54-1.04-29.04-9.27-.21-.23-.21-.51-.68-.4ZM120.87,39.25c-24.21,1.67-23.29,39.15-.55,40.97,9.23.74,18.45-3.97,20.21-13.62,2.65-14.5-2.92-28.5-19.66-27.34Z"/>
+  <path d="M570.44,90.06c-.17-2.18-.36-4.4-.49-6.59-.04-.76.28-3.44-.35-3.73-8.05,14.94-30.89,14.86-41.4,2.76-12.6-14.48-10.39-45.01,9-52.69,11.46-4.54,26.07-2.32,32.4,9.12.63-.28.31-2.97.35-3.73.12-2.11.33-4.25.49-6.35h14.16v61.2h-14.16ZM550.71,39.49c-23.78,1.96-21.31,42.04,3.28,40,23.74-1.97,22.19-42.1-3.28-40Z"/>
+  <path d="M50.6,39.18v-10.32h12.96v61.2h-12.96v-10.32c-.56-.13-.39.1-.55.3-6.83,8.82-16.3,12.78-27.54,10.63-26.83-5.16-30.01-46.43-7.74-59.6,13.03-7.71,26.42-2.16,35.83,8.11ZM30.15,39.49c-23.4,2.39-21.66,41.46,3.05,39.77,25.16-1.72,23.23-42.45-3.05-39.77Z"/>
+  <path d="M245.24,62.94h-47.52c-.15,8.96,6.24,16.37,15.07,17.69,9.28,1.39,17.54-4.27,20.12-13.15l12.33.26c-1.37,12.53-10.78,21.36-22.99,23.45-24.49,4.2-41.89-16.38-36.89-40.01,3.85-18.21,24.76-27.55,41.77-21.85,14.51,4.87,19.92,19.22,18.11,33.61ZM233.24,55.74c.26-11.46-9.36-18.86-20.45-17.21-8.79,1.31-15,8.32-15.07,17.21h35.52Z"/>
+  <path d="M379.4,62.94h-47.52v3.96c0,1.86,2.16,6.17,3.37,7.67,6.42,8.02,21.78,8.8,27.69-.14,1.14-1.73,2.5-5.42,4.1-6.46,2.17-1.41,9.34.18,12.12-.24-1.49,12.99-13.21,22.87-26.04,23.76-24.78,1.71-39.6-18.5-33.17-42.05,8.43-30.88,55.42-28.53,59.42,3.56.41,3.31.29,6.62.03,9.93ZM366.2,55.98c1.56-13.82-12.23-21-24.24-16.2-6.64,2.66-10.6,9.04-10.08,16.2h34.32Z"/>
+  <path d="M430.23,27.49c5.56-.29,11.65,1.28,16.7,3.56,28.23,12.8,19.92,60.04-13.63,60.46-43.63.54-42.89-61.97-3.06-64.02ZM429.99,39.25c-25.59,2.28-20.33,46.5,6.34,40.66,8.62-1.89,13.89-8,14.59-16.85,1.08-13.56-6.19-25.12-20.92-23.8Z"/>
+  <path d="M312.92,52.37l-12.32-.28c-2.12-3.26-3.66-7.04-6.77-9.55-4.39-3.56-11.58-3.98-16.86-2.47-11.25,3.23-13.32,17.26-11.23,27.19,3.79,17.98,30.02,17.06,34-.22l13.17-.51c-2.25,13.92-11.39,23.2-25.56,24.71-16.28,1.74-29.54-5.17-34.08-21.36-6.55-23.38,8.69-44.51,33.6-42,13.52,1.36,24.15,10.89,26.04,24.48Z"/>
+  <path d="M657.08,13.5v15.36h15.36v10.56h-15.36v35.88c0,.07.59,1.02.72,1.2,2.67,3.59,10.62,3.36,14.64,3v11.76c-2.03-.06-4.08.08-6.12,0-6.9-.28-16.41-1.5-19.77-8.55-.64-1.35-2.67-8.5-2.67-9.81v-33.48h-8.16v-10.56h8.04c.88-1.51.15-3.77.11-5.39-.05-2.1-.38-8.02,1.2-9.38.25-.22,1.32-.59,1.57-.59h10.44Z"/>
+  <path d="M501.56,6.3v10.8h-4.44c-.84,0-3.42.85-4.29,1.23-3.98,1.77-5.39,5.66-5.44,9.81l14.16.72v10.44c-.44.53-1.39.4-2.05.37-3.91-.21-8.89-1.59-12.11,1.31v50.28h-12v-51.84h-9.36v-10.56h9.36v-5.88c0-.94.87-3.74,1.26-4.74,3.81-9.95,15.05-13.36,24.9-11.94Z"/>
+  <path d="M628.52,27.66v14.16c-6.53-.91-17.07,1.51-20.2,8-.43.9-2.36,6.99-2.36,7.72v32.52h-12.96V28.86h12.96c.18,2.02.38,4.09.49,6.11.07,1.31-.31,2.78.35,3.97,4.48-7.37,13.12-11.61,21.72-11.28Z"/>
+  <rect x="163.16" y="28.86" width="13.2" height="61.2"/>
+  <rect x="6.68" y=".54" width="53.28" height="10.56"/>
+  <path d="M167.9.12c8.91-1.3,14.02,8.34,7.59,14.79s-17.47.13-14.3-8.78c.95-2.68,3.83-5.59,6.71-6.01Z"/>
+</svg>
+</div>
+<button class="again" id="again" type="button">again!</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/poly-decomp/0.3.0/decomp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+<script>
+(function () {
+  // Logo.svg의 글자들 (viewBox 0 0 672.44 118.14). 각 항목이 하나의 조각으로 떨어집니다.
+  const LOGO_W = 672.44, LOGO_H = 118.14;
+  const GLYPHS = [
+    ['M6.68.54h53.28v10.56H6.68Z', // a 위의 바 + a 를 한 조각으로
+     'M50.6,39.18v-10.32h12.96v61.2h-12.96v-10.32c-.56-.13-.39.1-.55.3-6.83,8.82-16.3,12.78-27.54,10.63-26.83-5.16-30.01-46.43-7.74-59.6,13.03-7.71,26.42-2.16,35.83,8.11ZM30.15,39.49c-23.4,2.39-21.66,41.46,3.05,39.77,25.16-1.72,23.23-42.45-3.05-39.77Z'],
+    'M102.68,80.94v37.2h-11.76V28.86h11.76l.72,9.12c9.45-9.5,22.8-13.97,35.2-7,22.76,12.79,20.91,53.76-6.2,59.64-11.03,2.39-21.54-1.04-29.04-9.27-.21-.23-.21-.51-.68-.4ZM120.87,39.25c-24.21,1.67-23.29,39.15-.55,40.97,9.23.74,18.45-3.97,20.21-13.62,2.65-14.5-2.92-28.5-19.66-27.34Z',
+    'M163.16,28.86h13.2v61.2h-13.2Z',
+    'M167.9.12c8.91-1.3,14.02,8.34,7.59,14.79s-17.47.13-14.3-8.78c.95-2.68,3.83-5.59,6.71-6.01Z',
+    'M245.24,62.94h-47.52c-.15,8.96,6.24,16.37,15.07,17.69,9.28,1.39,17.54-4.27,20.12-13.15l12.33.26c-1.37,12.53-10.78,21.36-22.99,23.45-24.49,4.2-41.89-16.38-36.89-40.01,3.85-18.21,24.76-27.55,41.77-21.85,14.51,4.87,19.92,19.22,18.11,33.61ZM233.24,55.74c.26-11.46-9.36-18.86-20.45-17.21-8.79,1.31-15,8.32-15.07,17.21h35.52Z',
+    'M312.92,52.37l-12.32-.28c-2.12-3.26-3.66-7.04-6.77-9.55-4.39-3.56-11.58-3.98-16.86-2.47-11.25,3.23-13.32,17.26-11.23,27.19,3.79,17.98,30.02,17.06,34-.22l13.17-.51c-2.25,13.92-11.39,23.2-25.56,24.71-16.28,1.74-29.54-5.17-34.08-21.36-6.55-23.38,8.69-44.51,33.6-42,13.52,1.36,24.15,10.89,26.04,24.48Z',
+    'M379.4,62.94h-47.52v3.96c0,1.86,2.16,6.17,3.37,7.67,6.42,8.02,21.78,8.8,27.69-.14,1.14-1.73,2.5-5.42,4.1-6.46,2.17-1.41,9.34.18,12.12-.24-1.49,12.99-13.21,22.87-26.04,23.76-24.78,1.71-39.6-18.5-33.17-42.05,8.43-30.88,55.42-28.53,59.42,3.56.41,3.31.29,6.62.03,9.93ZM366.2,55.98c1.56-13.82-12.23-21-24.24-16.2-6.64,2.66-10.6,9.04-10.08,16.2h34.32Z',
+    'M430.23,27.49c5.56-.29,11.65,1.28,16.7,3.56,28.23,12.8,19.92,60.04-13.63,60.46-43.63.54-42.89-61.97-3.06-64.02ZM429.99,39.25c-25.59,2.28-20.33,46.5,6.34,40.66,8.62-1.89,13.89-8,14.59-16.85,1.08-13.56-6.19-25.12-20.92-23.8Z',
+    'M501.56,6.3v10.8h-4.44c-.84,0-3.42.85-4.29,1.23-3.98,1.77-5.39,5.66-5.44,9.81l14.16.72v10.44c-.44.53-1.39.4-2.05.37-3.91-.21-8.89-1.59-12.11,1.31v50.28h-12v-51.84h-9.36v-10.56h9.36v-5.88c0-.94.87-3.74,1.26-4.74,3.81-9.95,15.05-13.36,24.9-11.94Z',
+    'M570.44,90.06c-.17-2.18-.36-4.4-.49-6.59-.04-.76.28-3.44-.35-3.73-8.05,14.94-30.89,14.86-41.4,2.76-12.6-14.48-10.39-45.01,9-52.69,11.46-4.54,26.07-2.32,32.4,9.12.63-.28.31-2.97.35-3.73.12-2.11.33-4.25.49-6.35h14.16v61.2h-14.16ZM550.71,39.49c-23.78,1.96-21.31,42.04,3.28,40,23.74-1.97,22.19-42.1-3.28-40Z',
+    'M628.52,27.66v14.16c-6.53-.91-17.07,1.51-20.2,8-.43.9-2.36,6.99-2.36,7.72v32.52h-12.96V28.86h12.96c.18,2.02.38,4.09.49,6.11.07,1.31-.31,2.78.35,3.97,4.48-7.37,13.12-11.61,21.72-11.28Z',
+    'M657.08,13.5v15.36h15.36v10.56h-15.36v35.88c0,.07.59,1.02.72,1.2,2.67,3.59,10.62,3.36,14.64,3v11.76c-2.03-.06-4.08.08-6.12,0-6.9-.28-16.41-1.5-19.77-8.55-.64-1.35-2.67-8.5-2.67-9.81v-33.48h-8.16v-10.56h8.04c.88-1.51.15-3.77.11-5.39-.05-2.1-.38-8.02,1.2-9.38.25-.22,1.32-.59,1.57-.59h10.44Z'
+  ];
+
+  const { Engine, Bodies, Body, Composite, Events, Vertices, Bounds, Common } = Matter;
+  Common.setDecomp(window.decomp);
+
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 숨은 SVG: 경로를 점으로 샘플링하기 위해 필요
+  const NS = 'http://www.w3.org/2000/svg';
+  const hidden = document.createElementNS(NS, 'svg');
+  hidden.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+  document.body.appendChild(hidden);
+
+  // 경로를 일정 간격으로 점 찍어 다각형으로 만들기 (Matter.Svg 대신, 최신 브라우저 호환)
+  function samplePath(el, step) {
+    const L = el.getTotalLength();
+    const n = Math.max(12, Math.ceil(L / step));
+    const v = [];
+    for (let i = 0; i < n; i++) {
+      const p = el.getPointAtLength((L * i) / n);
+      v.push({ x: p.x, y: p.y });
+    }
+    return v;
+  }
+
+  // 각 글자: 렌더용 Path2D + 충돌용 바깥 윤곽 점들 (svg 단위)
+  const glyphs = GLYPHS.map(entry => {
+    const ds = Array.isArray(entry) ? entry : [entry];
+    const sets = ds.map(d => {
+      const el = document.createElementNS(NS, 'path');
+      el.setAttribute('d', d.split(/(?=M)/)[0]); // 첫 서브패스 = 바깥 윤곽 (속 구멍은 제외)
+      hidden.appendChild(el);
+      return samplePath(el, 3);
+    });
+    return { path: new Path2D(ds.join(' ')), sets, centre: Vertices.centre(sets.flat()) };
+  });
+
+  let engine, pieces = [], W, H, dpr, scale, offsetX, raf;
+  // 커서: 화면 위를 돌아다니는 보이지 않는 동그란 물체. 글자에 닿으면 밀고 튕깁니다.
+  let cursor, pointer = { x: -9999, y: -9999, vx: 0, vy: 0, active: false };
+  let cursorPrev = { x: -9999, y: -9999 };
+
+  function layout() {
+    W = window.innerWidth; H = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // 글자 크기: 쌓였을 때 화면 전체를 채우도록 화면 면적 기준으로 계산
+    // FILL 값을 키우면 더 꽉 차고(글자가 커지고), 줄이면 여유가 생깁니다
+    const FILL = 0.85;
+    const big = Math.min(Math.sqrt((W * H * FILL) / (LOGO_W * LOGO_H)), (H / LOGO_H) * 0.6);
+    scale = reduceMotion ? (W * 0.9) / LOGO_W : big;
+    offsetX = (W - LOGO_W * scale) / 2;
+  }
+
+  function build() {
+    if (engine) { Composite.clear(engine.world); Engine.clear(engine); }
+    engine = Engine.create({ enableSleeping: false });
+    engine.gravity.y = 1;
+    pieces = [];
+
+    const t = 400;
+    Composite.add(engine.world, [
+      Bodies.rectangle(W / 2, H + t / 2, W * 4, t, { isStatic: true }),
+      Bodies.rectangle(-t / 2, H / 2, t, H * 6, { isStatic: true }),
+      Bodies.rectangle(W + t / 2, H / 2, t, H * 6, { isStatic: true })
+    ]);
+
+    glyphs.forEach((g, i) => {
+      const v = g.sets.map(set => Vertices.scale(set.map(p => ({ x: p.x, y: p.y })), scale, scale, { x: 0, y: 0 }));
+      const C = Vertices.centre(v.flat());
+      const ob = Bounds.create(v.flat());
+      const body = Bodies.fromVertices(C.x, C.y, v, {
+        restitution: 0.25, friction: 0.5, frictionAir: 0.012, density: 0.002
+      }, true);
+      // 물리 바디의 위치(질량중심)와 글자 도형 중심의 차이를 기록해 두고 그릴 때 보정
+      const T = { x: body.bounds.min.x - ob.min.x, y: body.bounds.min.y - ob.min.y };
+      const local = { x: C.x + T.x - body.position.x, y: C.y + T.y - body.position.y };
+
+      const homeX = offsetX + C.x;
+      const homeY = (H - LOGO_H * scale) / 2 + C.y; // 로고를 화면 세로 중앙에 둘 때의 위치
+      if (reduceMotion) {
+        Body.setPosition(body, { x: homeX, y: homeY });
+        Body.setStatic(body, true);
+      } else {
+        Body.setPosition(body, {
+          x: Math.min(Math.max(homeX + (Math.random() - 0.5) * 120, 80 * scale), W - 80 * scale),
+          y: -150 * scale - Math.random() * 200 - i * 55 * scale
+        });
+        Body.setAngle(body, (Math.random() - 0.5) * 1.2);
+        Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.08);
+      }
+      pieces.push({ body, path: g.path, local, centre: g.centre });
+      Composite.add(engine.world, body);
+    });
+
+    // 커서 물체 (반지름은 글자 크기에 비례)
+    const r = Math.min(Math.max(14 * scale, 28), 90);
+    cursor = Bodies.circle(-9999, -9999, r, { isStatic: true, friction: 0, restitution: 0.9 });
+    Composite.add(engine.world, cursor);
+
+    // 커서에 닿은 글자에 커서의 속도를 일부 더해 줘서 쳐내는 느낌을 강화
+    Events.on(engine, 'collisionActive', e => {
+      for (const pair of e.pairs) {
+        const other = pair.bodyA === cursor ? pair.bodyB : pair.bodyB === cursor ? pair.bodyA : null;
+        if (!other || other.isStatic) continue;
+        const k = 0.35, cap = 25;
+        const vx = Math.max(-cap, Math.min(cap, other.velocity.x + pointer.vx * k));
+        const vy = Math.max(-cap, Math.min(cap, other.velocity.y + pointer.vy * k));
+        Body.setVelocity(other, { x: vx, y: vy });
+      }
+    });
+  }
+
+  // 포인터 추적 (마우스 + 터치)
+  canvas.addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; });
+  canvas.addEventListener('pointerdown', e => { pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; });
+  canvas.addEventListener('pointerleave', () => { pointer.active = false; });
+  canvas.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') pointer.active = false; });
+  canvas.addEventListener('pointercancel', () => { pointer.active = false; });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#000';
+    for (const p of pieces) {
+      const b = p.body;
+      ctx.save();
+      ctx.translate(b.position.x, b.position.y);
+      ctx.rotate(b.angle);
+      ctx.translate(p.local.x, p.local.y);
+      ctx.scale(scale, scale);
+      ctx.translate(-p.centre.x, -p.centre.y);
+      ctx.fill(p.path);
+      ctx.restore();
+    }
+  }
+
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(now - last, 33); last = now;
+    if (!reduceMotion) {
+      // 커서 물체를 포인터 위치로 옮기고, 이번 프레임의 이동량을 속도로 기록
+      const tx = pointer.active ? pointer.x : -9999, ty = pointer.active ? pointer.y : -9999;
+      pointer.vx = pointer.active && cursorPrev.x > -9000 ? tx - cursorPrev.x : 0;
+      pointer.vy = pointer.active && cursorPrev.y > -9000 ? ty - cursorPrev.y : 0;
+      Body.setPosition(cursor, { x: tx, y: ty });
+      cursorPrev = { x: tx, y: ty };
+      Engine.update(engine, dt);
+    }
+    draw();
+    raf = requestAnimationFrame(loop);
+  }
+
+  function start() { layout(); build(); cancelAnimationFrame(raf); last = performance.now(); raf = requestAnimationFrame(loop); }
+
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(start, 200); });
+  document.getElementById('again').addEventListener('click', start);
+  start();
+})();
+</script>
+</body>
+</html>
